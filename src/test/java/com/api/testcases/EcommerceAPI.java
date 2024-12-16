@@ -1,6 +1,7 @@
 package com.api.testcases;
 
 import api.commons.base.ApiFactory;
+import api.commons.base.BaseTest;
 import api.commons.data.UserData;
 import api.commons.data.orderData.OrderData;
 import api.commons.data.orderData.OrderItems;
@@ -12,7 +13,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class EcommerceAPI {
+public class EcommerceAPI extends BaseTest {
     private UserApi userApi;
     private CategoriesApi categoriesApi;
     private ProductApi productApi;
