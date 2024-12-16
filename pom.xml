@@ -10,8 +10,7 @@
 <!--Global variable-->
   <properties>
       <!-- Encoding for Build/ Console -->
-      <maven.compiler.target>21</maven.compiler.target>
-      <maven.compiler.source>21</maven.compiler.source>
+      <maven.compiler.release>21</maven.compiler.release>
 
       <!-- Encoding for Build/ Console -->
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -113,27 +112,12 @@
           <version>${allureReport.version}</version>
       </dependency>
 
-      <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-junit4 -->
-      <dependency>
-          <groupId>io.qameta.allure</groupId>
-          <artifactId>allure-junit4</artifactId>
-          <version>${allureReport.version}</version>
-      </dependency>
-
       <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
       <dependency>
           <groupId>org.aspectj</groupId>
           <artifactId>aspectjweaver</artifactId>
           <version>${aspectJ.version}</version>
           <scope>runtime</scope>
-      </dependency>
-
-      <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-junit5 -->
-      <dependency>
-          <groupId>io.qameta.allure</groupId>
-          <artifactId>allure-junit5</artifactId>
-          <version>${allureReport.version}</version>
-          <scope>test</scope>
       </dependency>
 
       <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-attachments -->
@@ -174,20 +158,13 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-                    <!-- Đường dẫn file XML -->
                     <suiteXmlFiles>
                         <suiteXmlFile>src/test/resources/RunAdminTestcase.xml</suiteXmlFile>
                     </suiteXmlFiles>
-
-                    <!-- Kích hoạt AspectJ cho Allure -->
                     <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.22.1/aspectjweaver-1.9.22.1.jar"
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectJ.version}/aspectjweaver-${aspectJ.version}.jar"
                     </argLine>
 
-                    <!-- Đảm bảo thư mục kết quả Allure -->
-                    <systemPropertyVariables>
-                        <allure.results.directory>target/allure-results</allure.results.directory>
-                    </systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>
