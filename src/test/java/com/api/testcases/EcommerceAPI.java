@@ -43,7 +43,7 @@ public class EcommerceAPI extends BaseTest {
         comment = "Great product";
     }
     @Test
-    public void TC_01(){
+    public void EC_01_CreateUser(){
         userData = new UserData(userName, email, password);
         Response createUserResponse = userApi.createUser(userData);
 
@@ -55,7 +55,7 @@ public class EcommerceAPI extends BaseTest {
     }
 
     @Test
-    public void TC_02(){
+    public void EC_02_SearchCategoryAndPlaceAnOrder(){
         Response searchCategoryResponse = categoriesApi.searchCategory("Electronics");
 
         searchCategoryResponse.then().statusCode(200);
@@ -78,7 +78,7 @@ public class EcommerceAPI extends BaseTest {
     }
 
     @Test
-    public void TC_03(){
+    public void EC_03_AddAReviewToPurchasedOrder(){
         reviewData = new ReviewData(userId, productId, rating, comment);
 
         reviewApi = apiFactory.getReviewApi();
