@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<suite parallel = "false" name="BreadStack_Assignment_2">
+<suite parallel = "false" name="BreadStack_Assignment">
 
     <listeners>
         <listener class-name="userInterface.actions.reportConfig.AllureTestListener"/>
@@ -35,6 +35,12 @@
             <class name="com.ui.testcases.Checkboxes"/>
             <class name="com.ui.testcases.Dropdown"/>
             <class name="com.ui.testcases.FileUploads"/>
+        </classes>
+    </test>
+
+    <test name="Run EcommerceAPI" preserve-order="true">
+        <classes>
+            <class name="com.api.testcases.EcommerceAPI"/>
         </classes>
     </test>
 
