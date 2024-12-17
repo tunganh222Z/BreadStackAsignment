@@ -164,7 +164,6 @@
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectJ.version}/aspectjweaver-${aspectJ.version}.jar"
                     </argLine>
-
                 </configuration>
             </plugin>
         </plugins>
