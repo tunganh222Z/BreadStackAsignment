@@ -16,9 +16,9 @@ public class Checkboxes extends BaseTest {
     private HomePagePageObject homePagePage;
     private CheckboxesPageObject checkboxesPage;
 
-    @Parameters({"browserName" , "url"})
+    @Parameters({"browserName", "url"})
     @BeforeClass
-    public void beforeClass(String browserName, String url){
+    public void beforeClass(String browserName, String url) {
         driver = getBrowserDriver(browserName, url);
 
         homePagePage = PageGenerator.getHomePageObject(driver);
@@ -27,7 +27,7 @@ public class Checkboxes extends BaseTest {
     }
 
     @Test
-    public void CB_01_UnselectAllCheckboxes(){
+    public void CB_01_UnselectAllCheckboxes() {
         checkboxesPage.UnselectCheckbox1();
 
         checkboxesPage.UnselectCheckbox2();
@@ -38,7 +38,7 @@ public class Checkboxes extends BaseTest {
     }
 
     @Test
-    public void CB_02_SelectAllCheckboxes(){
+    public void CB_02_SelectAllCheckboxes() {
         checkboxesPage.SelectCheckbox1();
 
         checkboxesPage.SelectCheckbox2();
@@ -49,7 +49,7 @@ public class Checkboxes extends BaseTest {
     }
 
     @AfterClass
-    public void afterClass(){
+    public void afterClass() {
         closeBrowser();
     }
 }

@@ -18,9 +18,9 @@ public class Dropdown extends BaseTest {
 
     private String option1, option2;
 
-    @Parameters({"browserName" , "url"})
+    @Parameters({"browserName", "url"})
     @BeforeClass
-    public void beforeClass(String browserName, String url){
+    public void beforeClass(String browserName, String url) {
         option1 = "Option 1";
 
         option2 = "Option 2";
@@ -33,7 +33,7 @@ public class Dropdown extends BaseTest {
     }
 
     @Test
-    public void DD_01_(){
+    public void DD_01_() {
         dropdownPage.selectOptionInDropdownList(option1);
 
         Assert.assertEquals(dropdownPage.getOptionSelectedInDropdown(), "Option 1");
@@ -48,7 +48,7 @@ public class Dropdown extends BaseTest {
     }
 
     @AfterClass
-    public void afterClass(){
+    public void afterClass() {
         closeBrowser();
     }
 }

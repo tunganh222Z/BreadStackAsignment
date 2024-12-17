@@ -19,10 +19,10 @@ public class FormAuthentication extends BaseTest {
     private SecureAreaPageObject secureAreaPage;
     private String userName, password, invalidUserName, invalidPassword;
 
-    @Parameters({"browserName" , "url"})
+    @Parameters({"browserName", "url"})
     @BeforeClass
-    public void beforeClass(String browserName, String url){
-        userName ="tomsmith";
+    public void beforeClass(String browserName, String url) {
+        userName = "tomsmith";
         password = "SuperSecretPassword!";
 
         invalidUserName = "TungAnh";
@@ -36,7 +36,7 @@ public class FormAuthentication extends BaseTest {
     }
 
     @Test
-    public void FA_01_LoginWithEmptyData(){
+    public void FA_01_LoginWithEmptyData() {
         loginPage.clickToLoginButton();
 
         Assert.assertEquals(loginPage.getNotifyMsg(), "Your username is invalid!");
@@ -45,7 +45,7 @@ public class FormAuthentication extends BaseTest {
     }
 
     @Test
-    public void FA_02_LoginWithEmptyPassword(){
+    public void FA_02_LoginWithEmptyPassword() {
         loginPage.enterToUserNameTextbox(userName);
 
         loginPage.clickToLoginButton();
@@ -56,7 +56,7 @@ public class FormAuthentication extends BaseTest {
     }
 
     @Test
-    public void FA_03_LoginWithInvalidData(){
+    public void FA_03_LoginWithInvalidData() {
         loginPage.enterToUserNameTextbox(invalidUserName);
 
         loginPage.enterToPasswordTextbox(invalidPassword);
@@ -67,7 +67,7 @@ public class FormAuthentication extends BaseTest {
     }
 
     @Test
-    public void FA_04_LoginWithValidData(){
+    public void FA_04_LoginWithValidData() {
         loginPage.enterToUserNameTextbox(userName);
 
         loginPage.enterToPasswordTextbox(password);
@@ -76,19 +76,19 @@ public class FormAuthentication extends BaseTest {
 
         secureAreaPage = PageGenerator.getSecureAreaPageObject(driver);
 
-        Assert.assertEquals(secureAreaPage.getNotifyMsg(),"You logged into a secure area!");
+        Assert.assertEquals(secureAreaPage.getNotifyMsg(), "You logged into a secure area!");
 
         secureAreaPage.clickToCloseNotifyMsg();
 
         loginPage = secureAreaPage.clickToLogOutButton();
 
-        Assert.assertEquals(loginPage.getNotifyMsg(),"You logged out of the secure area!");
+        Assert.assertEquals(loginPage.getNotifyMsg(), "You logged out of the secure area!");
 
         loginPage.clickToCloseNotifyMsg();
     }
 
     @AfterClass
-    public void afterClass(){
+    public void afterClass() {
         closeBrowser();
     }
 }

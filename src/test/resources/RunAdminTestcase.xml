@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<suite parallel = "false" name="BreadStack_Assignment">
+<suite parallel = "false" thread-count="3" name="BreadStack_Assignment">
 
     <listeners>
         <listener class-name="userInterface.actions.reportConfig.AllureTestListener"/>

@@ -18,9 +18,9 @@ public class FileUploads extends BaseTest {
     private FileUploaderPageObject fileUploaderPage;
     private String fileName;
 
-    @Parameters({"browserName" , "url"})
+    @Parameters({"browserName", "url"})
     @BeforeClass
-    public void beforeClass(String browserName, String url){
+    public void beforeClass(String browserName, String url) {
         driver = getBrowserDriver(browserName, url);
 
         fileName = "BreadStackAssignment.pdf";
@@ -31,7 +31,7 @@ public class FileUploads extends BaseTest {
     }
 
     @Test
-    public void UF_01_UploadWithValidFile(){
+    public void UF_01_UploadWithValidFile() {
         fileUploaderPage.uploadSingleFile(fileName);
 
         Assert.assertEquals(fileUploaderPage.getLoadedFileName(), fileName);
@@ -44,7 +44,7 @@ public class FileUploads extends BaseTest {
     }
 
     @AfterClass
-    public void afterClass(){
+    public void afterClass() {
         closeBrowser();
     }
 

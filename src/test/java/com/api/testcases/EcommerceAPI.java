@@ -21,7 +21,7 @@ public class EcommerceAPI extends BaseTest {
     private ReviewApi reviewApi;
     private ApiFactory apiFactory;
 
-    private int categoryId, userId, productId, quantity,rating;
+    private int categoryId, userId, productId, quantity, rating;
     private String userName, email, password;
     private String productName, comment;
     private ReviewData reviewData;
@@ -30,7 +30,7 @@ public class EcommerceAPI extends BaseTest {
 
 
     @BeforeClass
-    public void beforeClass(){
+    public void beforeClass() {
         apiFactory = ApiFactory.getInstance();
         userApi = apiFactory.getUserApi();
 
@@ -42,8 +42,9 @@ public class EcommerceAPI extends BaseTest {
         rating = 5;
         comment = "Great product";
     }
+
     @Test
-    public void EC_01_CreateUser(){
+    public void EC_01_CreateUser() {
         userData = new UserData(userName, email, password);
         Response createUserResponse = userApi.createUser(userData);
 
@@ -55,7 +56,7 @@ public class EcommerceAPI extends BaseTest {
     }
 
     @Test
-    public void EC_02_SearchCategoryAndPlaceAnOrder(){
+    public void EC_02_SearchCategoryAndPlaceAnOrder() {
         Response searchCategoryResponse = categoriesApi.searchCategory("Electronics");
 
         searchCategoryResponse.then().statusCode(200);
@@ -68,7 +69,7 @@ public class EcommerceAPI extends BaseTest {
 
         productId = productApi.getProductIdByName(searchProductResponse, productName);
 
-        orderData = new OrderData(userId, List.of(new OrderItems(productId,quantity)));
+        orderData = new OrderData(userId, List.of(new OrderItems(productId, quantity)));
 
         orderApi = apiFactory.getOrderApi();
 
@@ -78,7 +79,7 @@ public class EcommerceAPI extends BaseTest {
     }
 
     @Test
-    public void EC_03_AddAReviewToPurchasedOrder(){
+    public void EC_03_AddAReviewToPurchasedOrder() {
         reviewData = new ReviewData(userId, productId, rating, comment);
 
         reviewApi = apiFactory.getReviewApi();
