@@ -16,22 +16,9 @@ import java.util.Set;
 
 public class BasePage {
 
-    //không cần phải khởi tạo đối tượng mà vẫn có thể
-    // truy cập trực tiếp từ phạm vi class
-    public static BasePage getBasePage(){
+    public static BasePage getBasePage() {
         return new BasePage();
     }
-    // Hàm dùng để làm gì
-    // Dùng hàm nào của Selenium
-    // Kiểu trả về của hàm đó
-    // Các hàm tương tác thì hầu như là void .click, .sendkeys, .accept, .cancel , ...
-    // Các hàm để lấy dữ liệu ra thì hầu như là String, int, WebElement, List<WebElement>. Hầu hết là String
-    // Tên hàm đặt theo tiêu chuẩn camelCase
-    // Có tham số hay không tùy vào chức năng cần viết
-    // Kiểu dữ liệu trả về cho hàm
-
-    // Thằng này chứa các hàm chung của selenium
-
 
     public String getCurrentPageUrl(WebDriver driver) {
         return driver.getCurrentUrl();
@@ -53,7 +40,7 @@ public class BasePage {
         driver.navigate().refresh();
     }
 
-    public void openPageURL (WebDriver driver, String URL){
+    public void openPageURL(WebDriver driver, String URL) {
         driver.get(URL);
     }
 
@@ -100,9 +87,6 @@ public class BasePage {
         driver.manage().deleteAllCookies();
     }
 
-    /* WebElement */
-    // driver.findelement(By.xpath()) đang bị lặp lại
-
 
     public By getByLocator(String locator) {
         By by = null;
@@ -125,7 +109,7 @@ public class BasePage {
         return by;
     }
 
-    public String getDynamicLocator (String locator, String... restParams){
+    public String getDynamicLocator(String locator, String... restParams) {
         return String.format(locator, (Object[]) restParams);
     }
 
@@ -134,7 +118,7 @@ public class BasePage {
     }
 
     public WebElement getWebElement(WebDriver driver, String locator, String... restParam) {
-        return driver.findElement(getByLocator(getDynamicLocator(locator,restParam)));
+        return driver.findElement(getByLocator(getDynamicLocator(locator, restParam)));
     }
 
     public List<WebElement> getListWebElements(WebDriver driver, String locator) {
@@ -150,14 +134,14 @@ public class BasePage {
     }
 
     public int getListElementsSize(WebDriver driver, String locator, String... restParam) {
-        return getListWebElements(driver, getDynamicLocator(locator,restParam)).size();
+        return getListWebElements(driver, getDynamicLocator(locator, restParam)).size();
     }
 
     public void clickToElement(WebDriver driver, String locator) {
         getWebElement(driver, locator).click();
     }
 
-    public void clickToListElements(WebDriver driver, WebElement webElement){
+    public void clickToListElements(WebDriver driver, WebElement webElement) {
         new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.elementToBeClickable(webElement));
         webElement.click();
     }
@@ -176,11 +160,8 @@ public class BasePage {
         getWebElement(driver, getDynamicLocator(locator, restParams)).sendKeys(keysToSend);
     }
 
-    //Default dropdown
-
     public void selectItemInDefaultDropdown(WebDriver driver, String locator, String itemValue) {
         new Select(getWebElement(driver, locator)).selectByVisibleText(itemValue);
-        //Select tunganh = new Select(driver.findElement(By.xpath(""))).selectByVisibleText();
     }
 
     public void selectItemInDefaultDropdown(WebDriver driver, String locator, String itemValue, String... restParams) {
@@ -195,7 +176,6 @@ public class BasePage {
         return new Select(getWebElement(driver, locator)).isMultiple();
     }
 
-    //Custom dropdown
     public void selectItemInCustomDropdown(WebDriver driver, String parentLocator, String childLocator, String expectedText) {
         getWebElement(driver, parentLocator).click();
         sleepInSecond(1);
@@ -244,14 +224,6 @@ public class BasePage {
         return Color.fromString(getWebElementCssValue(driver, locator, "background-color")).asHex();
     }
 
-    // Radio button / checkbox
-
-    /**
-     * Apply for checkbox and radio button
-     *
-     * @param driver
-     * @param locator
-     */
     public void checkToELement(WebDriver driver, String locator) {
         if (!getWebElement(driver, locator).isSelected()) {
             getWebElement(driver, locator).click();
@@ -270,17 +242,14 @@ public class BasePage {
         }
     }
 
-    //Case 1 : Element hiền thị và có trong HTML
-    // Case 2 : Element hiển thị và không có trong HTML
     public boolean isElementDisplayed(WebDriver driver, String locator) {
         boolean status;
-        // Trước khi tìm element thì set time ngắn thôi
         setImplicitWait(driver, shortTimeOut);
 
         List<WebElement> elements = getListWebElements(driver, locator);
 
-        if (elements.size() >0){
-            if (elements.get(0).isDisplayed()){
+        if (elements.size() > 0) {
+            if (elements.get(0).isDisplayed()) {
                 status = true;
             } else {
                 status = false;
@@ -288,26 +257,23 @@ public class BasePage {
         } else {
             status = false;
         }
-
-        //Trả lại timeout mặc định cho các step còn lại, nếu không setLong là từ sau cứ short thôi
         setImplicitWait(driver, longTimeOut);
 
         return status;
     }
 
-    public void setImplicitWait(WebDriver driver, long timeout){
+    public void setImplicitWait(WebDriver driver, long timeout) {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeout));
     }
 
-    public boolean isELementUndisplayed(WebDriver driver, String locator){
+    public boolean isELementUndisplayed(WebDriver driver, String locator) {
         boolean status;
-        // Trước khi tìm element thì set time ngắn thôi
         setImplicitWait(driver, shortTimeOut);
 
         List<WebElement> elements = getListWebElements(driver, locator);
 
-        if (elements.size() >0){
-            if (elements.get(0).isDisplayed()){
+        if (elements.size() > 0) {
+            if (elements.get(0).isDisplayed()) {
                 status = false;
             } else {
                 status = true;
@@ -315,22 +281,19 @@ public class BasePage {
         } else {
             status = true;
         }
-
-        //Trả lại timeout mặc định cho các step còn lại, nếu không setLong là từ sau cứ short thôi
         setImplicitWait(driver, longTimeOut);
 
         return status;
     }
 
-    public boolean isELementUndisplayed(WebDriver driver, String locator, String... restParam){
+    public boolean isELementUndisplayed(WebDriver driver, String locator, String... restParam) {
         boolean status;
-        // Trước khi tìm element thì set time ngắn thôi
         setImplicitWait(driver, shortTimeOut);
 
         List<WebElement> elements = getListWebElements(driver, getDynamicLocator(locator, restParam));
 
-        if (elements.size() >0){
-            if (elements.get(0).isDisplayed()){
+        if (elements.size() > 0) {
+            if (elements.get(0).isDisplayed()) {
                 status = false;
             } else {
                 status = true;
@@ -338,13 +301,10 @@ public class BasePage {
         } else {
             status = true;
         }
-
-        //Trả lại timeout mặc định cho các step còn lại, nếu không setLong là từ sau cứ short thôi
         setImplicitWait(driver, longTimeOut);
 
         return status;
     }
-
 
 
     public boolean isElementDisplayed(WebDriver driver, String locator, String... restParams) {
@@ -363,8 +323,6 @@ public class BasePage {
         return getWebElement(driver, locator).isEnabled();
     }
 
-    // Frame / iFrame
-
     public void switchToiFrame(WebDriver driver, String locator) {
         new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(getByLocator(locator)));
     }
@@ -377,7 +335,6 @@ public class BasePage {
         driver.switchTo().defaultContent();
     }
 
-    //Actions
     public void hoverToElement(WebDriver driver, String locator) {
         new Actions(driver).moveToElement(getWebElement(driver, locator)).perform();
     }
@@ -492,7 +449,7 @@ public class BasePage {
         new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByLocator(getDynamicLocator(locator, restParams))));
     }
 
-    public void waitForDropdownOptionsVisible (WebDriver driver, String locator, String... restParams){
+    public void waitForDropdownOptionsVisible(WebDriver driver, String locator, String... restParams) {
         new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByLocator(getDynamicLocator(locator, restParams))));
     }
 
@@ -521,24 +478,24 @@ public class BasePage {
         new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.elementToBeClickable(getByLocator(getDynamicLocator(locator, restParams))));
     }
 
-    public void uploadMultipleFiles (WebDriver driver,String locator, String... fileNames){
+    public void uploadMultipleFiles(WebDriver driver, String locator, String... fileNames) {
         String filePath = GlobalConstant.UPLOAD_FILE_PATH;
         String fullFileName = "";
-        for (String file : fileNames){
-            fullFileName = fullFileName +filePath + file + "\n";
+        for (String file : fileNames) {
+            fullFileName = fullFileName + filePath + file + "\n";
         }
         fullFileName = fullFileName.trim();
         getWebElement(driver, locator).sendKeys(fullFileName);
     }
 
-    public void clearAndTypeUsingActions (WebDriver driver, String keyToSend, String locator, String... restParam){
+    public void clearAndTypeUsingActions(WebDriver driver, String keyToSend, String locator, String... restParam) {
         new Actions(driver).click(getWebElement(driver, getDynamicLocator(locator, restParam)))
                 .keyDown(Keys.LEFT_CONTROL).sendKeys("a")
                 .keyUp(Keys.LEFT_CONTROL).sendKeys(Keys.DELETE)
                 .sendKeys(keyToSend).perform();
     }
 
-    public String getDateTimeNow(String dateTimeFormatter){
+    public String getDateTimeNow(String dateTimeFormatter) {
         LocalDateTime now = LocalDateTime.now();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateTimeFormatter);
