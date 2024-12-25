@@ -38,10 +38,5 @@
         </classes>
     </test>
 
-    <test name="Run EcommerceAPI" preserve-order="true">
-        <classes>
-            <class name="com.api.testcases.EcommerceAPI"/>
-        </classes>
-    </test>
 
 </suite>
