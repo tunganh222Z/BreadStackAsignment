@@ -1,0 +1,1 @@
+{"uuid":"61d073ec-1d1b-4b72-8ab8-b282ad0c93a3","name":"com.api.testcases.EcommerceAPI","children":["69322d99-2ac1-497d-af77-31cddea288a7"],"befores":[{"name":"beforeClass","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1735109229529,"stop":1735109229557}],"afters":[],"start":1735109229529,"stop":1735109232157}
