@@ -2,8 +2,11 @@ package userInterface.actions.commons;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeSuite;
@@ -16,13 +19,20 @@ public class BaseTest {
     WebDriver driver;
 
     protected WebDriver getBrowserDriver(String browserName, String url){
+
         BrowserList browser = BrowserList.valueOf(browserName.toUpperCase());
         if (browser == BrowserList.FIREFOX){
-            driver = new FirefoxDriver();
+            driver = new FirefoxDriver(new FirefoxOptions()
+                    .addArguments("--headless")
+                    .addArguments("--disable-gpu"));
         } else if (browser == BrowserList.CHROME){
-            driver = new ChromeDriver();
+            driver = new ChromeDriver( new ChromeOptions()
+                    .addArguments("--headless")
+                    .addArguments("--disable-gpu"));
         } else if (browser == BrowserList.EDGE) {
-            driver = new EdgeDriver();
+            driver = new EdgeDriver( new EdgeOptions()
+                    .addArguments("--headless")
+                    .addArguments("--disable-gpu"));
         } else {
             throw new RuntimeException("Browser name is not valid");
         }
